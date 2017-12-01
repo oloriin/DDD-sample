@@ -1,0 +1,28 @@
+#sudo docker-compose -f docker-compose.yml -f docker-compose.dev.yml build
+#sudo docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+#sudo docker-compose -f docker-compose.yml -f docker-compose.dev.yml restart
+version: "2"
+services:
+  nginx_proxy:
+    ports:
+      - "80:80"
+  nginx:
+    volumes:
+      - ./contaners/nginx/conf/dev.environment.conf:/etc/nginx/environment.conf
+    environment:
+      - NGINX_HOST=api.ddd-sample.loc
+      - VIRTUAL_HOST=api.ddd-sample.loc
+  nodejs:
+    environment:
+      - VIRTUAL_HOST=lk.ddd-sample.loc
+      - DEV_MODE=1
+    command: bash -c "bash /root/init.sh && cd /var/www/ddd-sample && npm run start-dev"
+  fpm:
+    ports:
+      - "9001:9001"
+    environment:
+      XDEBUG_CONFIG: remote_host=172.17.0.1
+      SYMFONY_DEBUG: 1
+  postgres:
+    ports:
+      - 5432:5432

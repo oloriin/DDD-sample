@@ -1,0 +1,27 @@
+#sudo docker-compose -f docker-compose.yml -f docker-compose.prod.yml build
+#sudo docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+#sudo docker-compose -f docker-compose.yml -f docker-compose.prod.yml restart
+version: "2"
+services:
+  nginx_proxy:
+    volumes:
+      - ./contaners/nginx-proxy/cert:/etc/nginx/certs
+    ports:
+      - "443:443"
+      - "80:80"
+  nginx:
+    volumes:
+      - ./contaners/nginx/conf/prod.environment.conf:/etc/nginx/environment.conf
+    environment:
+      - NGINX_HOST=api.ddd-sample.com
+      - VIRTUAL_HOST=api.ddd-sample.com
+  nodejs:
+    environment:
+      - VIRTUAL_HOST=lk.ddd-sample.com
+      - DEV_MODE=0
+    command: bash -c "npm -v && nodejs -v && bash /root/init.sh && cd /var/www/ddd-sample && npm run start-prod"
+  fpm:
+    environment:
+      XDEBUG_CONFIG: remote_enable=false
+      XDEBUG_CONFIG: remote_connect_back=false
+      XDEBUG_CONFIG: remote_autostart=false
