@@ -1,0 +1,7 @@
+services:
+    service.contact_normalizer_factory:
+        class: ServiceLayerBundle\DTO\Factory\ContactNormalizerFactory
+    service.message_normalizer_factory:
+        class: ServiceLayerBundle\DTO\Factory\MessageNormalizerFactory
+    service.contact_external_account_normalizer_factory:
+        class: ServiceLayerBundle\DTO\Factory\ContactExternalAccountNormalizerFactory

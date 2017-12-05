@@ -1,0 +1,13 @@
+services:
+  gateway.message_gateway_repository:
+      class: GatewayLayerBundle\MessageGateway\MessageGatewayRepository
+      arguments: ['@gateway.message_gateway_factory']
+  gateway.message_gateway_factory:
+      class: GatewayLayerBundle\MessageGateway\MessageGatewayFactory
+      arguments: [
+        '@service.contact_normalizer_factory',
+        '@service.message_normalizer_factory',
+        '@service.contact_external_account_normalizer_factory',
+        '@infrastructure.repository.message_service',
+        '@http_client',
+        ]
