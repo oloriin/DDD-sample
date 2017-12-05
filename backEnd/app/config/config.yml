@@ -50,12 +50,12 @@ doctrine:
                 user:     "%database_user%"
                 password: "%database_password%"
         types:
-          MessageServiceGatewayType: CoreDomain\MessageService\MessageServiceGatewayType
-          MessageServiceType: CoreDomain\MessageService\MessageServiceType
-          MessageDirectionType: CoreDomain\Contact\Message\MessageDirectionType
-          MessageSenderAppType: CoreDomain\Contact\Message\MessageSenderAppType
-          MessageGatewayStatusType: CoreDomain\Contact\Message\MessageGatewayStatusType
-          ContactPresenceType: CoreDomain\Contact\ContactPresenceType
+          MessageServiceGatewayType: DomainLayer\MessageService\MessageServiceGatewayType
+          MessageServiceType: DomainLayer\MessageService\MessageServiceType
+          MessageDirectionType: DomainLayer\Contact\Message\MessageDirectionType
+          MessageSenderAppType: DomainLayer\Contact\Message\MessageSenderAppType
+          MessageGatewayStatusType: DomainLayer\Contact\Message\MessageGatewayStatusType
+          ContactPresenceType: DomainLayer\Contact\ContactPresenceType
 
     orm:
         auto_generate_proxy_classes: '%kernel.debug%'
@@ -66,33 +66,33 @@ doctrine:
                 mappings:
                     Company:
                         type: annotation
-                        prefix: CoreDomain\Company\
-                        dir: "%kernel.root_dir%/../src/CoreDomain/Company/"
+                        prefix: DomainLayer\Company\
+                        dir: "%kernel.root_dir%/../src/DomainLayer/Company/"
                         is_bundle: false
                     Contact:
                         type: annotation
-                        prefix: CoreDomain\Contact\
-                        dir: "%kernel.root_dir%/../src/CoreDomain/Contact/"
+                        prefix: DomainLayer\Contact\
+                        dir: "%kernel.root_dir%/../src/DomainLayer/Contact/"
                         is_bundle: false
                     Message:
                         type: annotation
-                        prefix: CoreDomain\Contact\Message\
-                        dir: "%kernel.root_dir%/../src/CoreDomain/Contact/Message/"
+                        prefix: DomainLayer\Contact\Message\
+                        dir: "%kernel.root_dir%/../src/DomainLayer/Contact/Message/"
                         is_bundle: false
                     ContactExternalAccount:
                         type: annotation
-                        prefix: CoreDomain\Contact\ContactExternalAccount\
-                        dir: "%kernel.root_dir%/../src/CoreDomain/Contact/ContactExternalAccount/"
+                        prefix: DomainLayer\Contact\ContactExternalAccount\
+                        dir: "%kernel.root_dir%/../src/DomainLayer/Contact/ContactExternalAccount/"
                         is_bundle: false
                     MessageService:
                         type: annotation
-                        prefix: CoreDomain\MessageService\
-                        dir: "%kernel.root_dir%/../src/CoreDomain/MessageService/"
+                        prefix: DomainLayer\MessageService\
+                        dir: "%kernel.root_dir%/../src/DomainLayer/MessageService/"
                         is_bundle: false
                     User:
                         type: annotation
-                        prefix: CoreDomain\User\
-                        dir: "%kernel.root_dir%/../src/CoreDomain/User/"
+                        prefix: DomainLayer\User\
+                        dir: "%kernel.root_dir%/../src/DomainLayer/User/"
                         is_bundle: false
 
 

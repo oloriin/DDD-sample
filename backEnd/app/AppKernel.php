@@ -16,9 +16,11 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
-            new ApplicationLayerApiBundle\ApplicationLayerApiBundle(),
-            new ServiceLayerBundle\ServiceLayerBundle(),
             new Nelmio\CorsBundle\NelmioCorsBundle(),
+            new ApplicationLayerApiBundle\ApplicationLayerApiBundle(),
+            new GatewayLayerBundle\GatewayLayerBundle(),
+            new InfrastructureLayerBundle\InfrastructureLayerBundle(),
+            new ServiceLayerBundle\ServiceLayerBundle(),
 
         ];
 

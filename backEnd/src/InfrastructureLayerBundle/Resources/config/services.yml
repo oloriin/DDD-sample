@@ -1,0 +1,22 @@
+services:
+#----------------------- Repository -------------------------------------
+    contact.contact_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: ["@doctrine.orm.entity_manager", getRepository]
+        arguments:
+            - DomainLayer\Contact\Contact
+    contact.contact_external_account_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: ["@doctrine.orm.entity_manager", getRepository]
+        arguments:
+            - DomainLayer\ContactExternalAccount\ContactExternalAccount
+    core_domain.repository.user:
+        class: InfrastructureLayerBundle\Repository\PostgresUserRepository
+        factory: ["@doctrine.orm.entity_manager", getRepository]
+        arguments:
+            - DomainLayer\User\User
+    core_domain.repository.company:
+        class: InfrastructureLayerBundle\Repository\PostgresCompanyRepository
+        factory: ["@doctrine.orm.entity_manager", getRepository]
+        arguments:
+            - DomainLayer\Company\Company
