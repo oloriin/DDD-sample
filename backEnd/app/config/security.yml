@@ -1,24 +1,60 @@
 # To get started with security, check out the documentation:
-# https://symfony.com/doc/current/security.html
+# http://symfony.com/doc/current/security.html
 security:
 
-    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        in_memory:
-            memory: ~
+        api_token_provider:
+            id: application.security.api_key_user_provider
 
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            pattern: ^/(_(profiler|wdt)|css|images|js|doc)|(doc)/
             security: false
-
+        webhook:
+            pattern: (^/\w+/message-service/webhook/gateway-type/\w+)|(^/\w+/crm-service/webhook/type/\w+)
+            security: false
+        login:
+            pattern: ^.*/generateAPIToken
+            simple_preauth:
+                authenticator: application.security.password_authenticator
+                provider: api_token_provider
         main:
-            anonymous: ~
+            pattern: ^.*
+            logout:       true
+            anonymous:    true
+            stateless: true
+
+            simple_preauth:
+                authenticator:  application.security.api_key_authenticator
+                provider: api_token_provider
+            provider: api_token_provider
+#            anonymous: ~
             # activate different ways to authenticate
 
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            #http_basic: ~
+    role_hierarchy:
+        ROLE_USER:            [ROLE_USER]
+        ROLE_ADMIN:           [ROLE_ADMIN]
+        ROLE_OPERATOR:        [ROLE_OPERATOR]
+        ROLE_MAIN_OPERATOR:   [ROLE_USER, ROLE_MAIN_OPERATOR, ROLE_OPERATOR]
+        ROLE_AGENCY_MANAGER:  [ROLE_USER, ROLE_AGENCY_MANAGER, ROLE_MAIN_OPERATOR, ROLE_OPERATOR]
+        ROLE_AGENCY_ADMIN:    [ROLE_USER, ROLE_AGENCY_ADMIN, ROLE_AGENCY_MANAGER, ROLE_MAIN_OPERATOR, ROLE_OPERATOR]
+        ROLE_SUPER_ADMIN:     [ROLE_USER, ROLE_SUPER_ADMIN, ROLE_USER, ROLE_ADMIN, ROLE_AGENCY_ADMIN, ROLE_AGENCY_ADMIN, ROLE_AGENCY_MANAGER, ROLE_MAIN_OPERATOR, ROLE_OPERATOR]
 
-            # https://symfony.com/doc/current/security/form_login_setup.html
-            #form_login: ~
+    access_control:
+        - { path: ^/v1/message-service, roles: ROLE_AGENCY_MANAGER, methods: [GET, POST]}
+        - { path: ^/v1/message-service/\d+, roles: ROLE_AGENCY_MANAGER, methods: [GET, PUT]}
+        - { path: ^/v1/company, roles: ROLE_AGENCY_MANAGER, methods: [POST]}
+        - { path: ^/v1/company/\d+, roles: ROLE_AGENCY_MANAGER, methods: [GET, PUT]}
+        - { path: ^/v1/company/\d+/message, roles: ROLE_OPERATOR, methods: [POST, GET]}
+        - { path: ^/v1/company/\d+/message/\d+, roles: ROLE_OPERATOR, methods: [PUT]}
+        - { path: ^/v1/user/generateAPIToken, roles: IS_AUTHENTICATED_ANONYMOUSLY, methods: [GET]}
+        - { path: ^/v1/user/self, roles: ROLE_USER, methods: [GET]}
+        - { path: ^/v1/user, roles: ROLE_AGENCY_ADMIN, methods: [GET, POST]}
+        - { path: ^/login$, role: ROLE_SUPER_ADMIN }
+        - { path: ^/register, role: ROLE_SUPER_ADMIN }
+        - { path: ^/resetting, role: ROLE_SUPER_ADMIN }
+        - { path: ^/admin/, role: ROLE_SUPER_ADMIN }
+
+    encoders:
+        DomainLayer\User\User: sha512

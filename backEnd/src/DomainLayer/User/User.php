@@ -9,7 +9,7 @@ use Imagine\Imagick\Imagine;
 
 /**
  *
- * @ORM\Table(name="sintez_user")
+ * @ORM\Table(name="sample_user")
  * @ORM\Entity(repositoryClass="InfrastructureLayerBundle\Repository\PostgresUserRepository")
  */
 class User extends BaseUser

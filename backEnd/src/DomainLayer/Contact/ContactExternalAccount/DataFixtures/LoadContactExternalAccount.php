@@ -21,6 +21,13 @@ class LoadContactExternalAccount extends AbstractFixture implements DependentFix
         ],
         [
             'Company'           => 'company.name_Марка',
+            'Contact'           => 'contact.company_name_Марка.num_2',
+            'MessageServiceType'=> MessageServiceType::TELEGRAM,
+            'MainAccountId'     => '245302314',
+            'fixtureReference'  => 'contact.company_name_Марка.num_2.MessageServiceType_'.MessageServiceType::TELEGRAM,
+        ],
+        [
+            'Company'           => 'company.name_Марка',
             'Contact'           => 'contact.company_name_Марка.num_1',
             'MessageServiceType'=> MessageServiceType::SMS,
             'MainAccountId'     => '79247211055',

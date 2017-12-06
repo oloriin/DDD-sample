@@ -39,7 +39,7 @@ class VkGatewayTest extends KernelTestCase
 
         $vkGateway = $this->factoryVkGateway($client, '123', '123');
         $request = new \Symfony\Component\HttpFoundation\Request(
-            ['SINTEZ-ApiToken' => 'jhvfgcwf4rtw3543453r534bgt'],
+            ['sample-ApiToken' => 'jhvfgcwf4rtw3543453r534bgt'],
             [],
             [],
             [],

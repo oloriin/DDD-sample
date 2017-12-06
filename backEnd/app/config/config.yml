@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: services.yml }
+    - { resource: "@ApplicationLayerApiBundle/Resources/config/services.yml" }
     - { resource: "@GatewayLayerBundle/Resources/config/services.yml" }
     - { resource: "@InfrastructureLayerBundle/Resources/config/services.yml" }
     - { resource: "@ServiceLayerBundle/Resources/config/services.yml" }
@@ -106,3 +107,26 @@ swiftmailer:
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: { type: memory }
+
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: DomainLayer\User\User
+    from_email:
+        address: "%mailer_user%"
+        sender_name: "%mailer_user%"
+
+nelmio_api_doc: ~
+
+nelmio_cors:
+    defaults:
+        origin_regex: true
+        allow_credentials: false
+        allow_origin: ['^http:\/\/lk\.ddd-sample\.loc:*[0-9]*', '^http:\/\/lk\.ddd-sample\.com']
+        allow_headers: ['sample-ApiToken']
+        allow_methods: ['GET', 'POST', 'PUT', 'DELETE']
+        expose_headers: []
+        max_age: 0
+        hosts: ['*']
+        origin_regex: false
+        forced_allow_origin_value: ~

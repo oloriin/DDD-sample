@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToMany;
+use DomainLayer\Normalized;
 
 /**
  * Contact
@@ -14,7 +15,7 @@ use Doctrine\ORM\Mapping\OneToMany;
  * @ORM\Table(name="contact")
  * @ORM\Entity(repositoryClass="InfrastructureLayerBundle\Repository\PostgresContactRepository")
  */
-class Contact
+class Contact implements Normalized
 {
     /**
      * @var int
@@ -134,5 +135,21 @@ class Contact
     {
         $this->contactExternalAccount = $contactExternalAccount;
         return $this;
+    }
+
+    /**
+     * Context from TreeGetSetNormalizer
+     * @return array
+     */
+    public static function getStandardNormalizeContext()
+    {
+        return [
+            'company'       => 'getId',
+            'messages'  => false,
+            'contactExternalAccount' => [
+                'contact' => 'getId',
+                'company' => 'getId',
+            ],
+        ];
     }
 }

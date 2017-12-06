@@ -37,6 +37,7 @@
         "guzzlehttp/guzzle" : "6.2.3",
         "friendsofsymfony/user-bundle" : "2.0.*",
         "nelmio/cors-bundle": "^1.5",
+        "nelmio/api-doc-bundle": "^2.13",
         "imagine/imagine": "~0.5.0"
     },
     "require-dev": {

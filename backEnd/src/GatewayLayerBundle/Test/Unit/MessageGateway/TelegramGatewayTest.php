@@ -161,7 +161,7 @@ class TelegramGatewayTest extends KernelTestCase
     private function factoryRequest($body): Request
     {
         $request = new Request(
-            ['SINTEZ-ApiToken' => 'jhvfgcwf4rtw3543453r534bgt'],
+            ['sample-ApiToken' => 'jhvfgcwf4rtw3543453r534bgt'],
             [],
             [],
             [],

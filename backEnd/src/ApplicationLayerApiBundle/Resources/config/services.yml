@@ -1,0 +1,11 @@
+services:
+    application.security.api_key_user_provider:
+        class: ApplicationLayerApiBundle\Security\ApiKeyUserProvider
+        arguments: ['@fos_user.user_manager']
+
+    application.security.api_key_authenticator:
+        class: ApplicationLayerApiBundle\Security\ApiKeyAuthenticator
+
+    application.security.password_authenticator:
+        class: ApplicationLayerApiBundle\Security\PasswordAuthenticator
+        arguments: ['@security.user_password_encoder.generic']
