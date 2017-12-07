@@ -1,31 +1,31 @@
 services:
     infrastructure.repository.contact:
-        class: InfrastructureLayerBundle\Repository\PostgresContactRepository
+        class: DomainLayer\Contact\ContactRepositoryInterface
         factory: ["@doctrine.orm.entity_manager", getRepository]
         arguments:
             - DomainLayer\Contact\Contact
     infrastructure.repository.contact_external_account:
-        class: InfrastructureLayerBundle\Repository\PostgresContactExternalAccountRepository
+        class: DomainLayer\Contact\ContactExternalAccount\ContactExternalAccountRepositoryInterface
         factory: ["@doctrine.orm.entity_manager", getRepository]
         arguments:
             - DomainLayer\Contact\ContactExternalAccount\ContactExternalAccount
     infrastructure.repository.user:
-        class: InfrastructureLayerBundle\Repository\PostgresUserRepository
+        class: DomainLayer\User\UserRepositoryInterface
         factory: ["@doctrine.orm.entity_manager", getRepository]
         arguments:
             - DomainLayer\User\User
     infrastructure.repository.company:
-        class: InfrastructureLayerBundle\Repository\PostgresCompanyRepository
+        class: DomainLayer\Company\CompanyRepositoryInterface
         factory: ["@doctrine.orm.entity_manager", getRepository]
         arguments:
             - DomainLayer\Company\Company
     infrastructure.repository.message:
-        class: InfrastructureLayerBundle\Repository\PostgresMessageRepository
+        class: DomainLayer\Contact\Message\MessageRepositoryInterface
         factory: ["@doctrine.orm.entity_manager", getRepository]
         arguments:
             - DomainLayer\Contact\Message\Message
     infrastructure.repository.message_service:
-        class: InfrastructureLayerBundle\Repository\PostgresMessageServiceRepository
+        class: DomainLayer\MessageService\MessageServiceRepositoryInterface
         factory: ["@doctrine.orm.entity_manager", getRepository]
         arguments:
             - DomainLayer\MessageService\MessageService
